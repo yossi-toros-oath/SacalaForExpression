@@ -1,4 +1,4 @@
-# SacalaForExpression
+# Sacala For Expression
 __For expression is a swiss army knife for iterations__
 
 ## Genereal Syntax :
@@ -56,6 +56,16 @@ In other words scala does not have a for loop it is systactic sugar for these me
 In the absance of the yield for behaves like the foreach method , now  the for loop will behave like the map method.
 ```
 for (abrv <- abrvs)  yield {
+  if (states.contains(abrv)) {
+    states(abrv)
+  } else {
+    "N/A"
+  }
+}
+```
+
+```
+abrvs.map { abrv =>
   if (states.contains(abrv)) {
     states(abrv)
   } else {
