@@ -31,4 +31,16 @@ for (abrv <- abrvs) {
   }
 }
 ```
+#### Question : 
+###### Can we genereate the same output without a for loop
+```
+abrvs.foreach { abrv =>
+	if (states.contains(abrv)) {
+    println(states(abrv))
+  } else {
+    println("N/A")
+  }
+}
+```
+
 
