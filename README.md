@@ -87,7 +87,7 @@ for {
 ```
 ### Semi colons are optional
 ```
-	for {
+for {
 	i <- 1 to 3 
 	j <- 1 to 2 
 	k <- 1 to 2 } println(s"i=$i j=$j k=$k")
@@ -107,4 +107,15 @@ for {
 	j <- 1 to 2
 	if(j%2==0) 
 	k <- 1 to 2 } println(s"i=$i j=$j k=$k")
+```
+### Lets take a better example to understand the power and the flexibility of the for expression
+Define the people csv string
+```
+val people ="""name,family_name,addres,city,state,zipcode
+John,Doe,120 jefferson st.,Riverside, NJ, 08075
+Jack,McGinnis,220 hobo Av.,Phila, PA,09119
+John Da Man,Repici,120 Jefferson St.,Riverside, NJ,08075
+Stephen,Tyler,7452 Terrace At the Plaza road,SomeTown,SD, 91234
+Mike,Anne,9th Terrace plc,Desert City,CO,00123
+"""
 ```
