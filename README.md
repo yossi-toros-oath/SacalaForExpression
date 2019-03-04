@@ -9,7 +9,7 @@ for ( sequence(s)/[filter(s)]/[assignment(s)] ) yield { expr }
 ```
 for ( seqeunce(s)/[filter(s)]/[assignment(s)]){ expr }
 ```
-#### Lets start with a simple example 
+#### A simple example 
 ```
 val range = 1 to 10
 for ( i <- range) println(i)
