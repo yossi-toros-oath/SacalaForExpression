@@ -49,6 +49,7 @@ The scala compiler will convert the for loop to one of the following control abs
 2. map
 3. flatMap
 4. withFilter
+
 In other words scala does not have a for loop it is systactic sugar for these methods.The real purpose of the scala for expression is to write the code in a way that makes more sense.You should use the for expression when you think your code is getting too cryptic using those methods, and it makes more sense using a for expression.Once you know that for is a syntactic sugar it beacomes easy understanding the for expression.
 
 ## Lets bring the "yield" back to the structure.
