@@ -5,7 +5,7 @@ __For expression is a swiss army knife for iterations__
 ```
 for ( sequence(s)/[filter(s)]/[assignment(s)] ) yield { expr }
 ```
-### Lets keep the yield aside (for the moment)
+## Lets keep the yield aside (for the moment)
 ```
 for ( seqeunce(s)/[filter(s)]/[assignment(s)]){ expr }
 ```
@@ -32,7 +32,7 @@ for (abrv <- abrvs) {
 }
 ```
 #### Question : 
-###### Can we genereate the same output without a for loop ?
+Can we genereate the same output without a for loop ?
 ```
 abrvs.foreach { abrv =>
   if (states.contains(abrv)) {
@@ -43,18 +43,16 @@ abrvs.foreach { abrv =>
 }
 ```
 
-###### The for loop is just a syntactic sugar for higher order conrol abstractions.
-###### The scala compiler will convert the for loop to one of the following control abstractions.
+The for loop is just a syntactic sugar for higher order conrol abstractions.
+The scala compiler will convert the for loop to one of the following control abstractions.
 1. foreach
 2. map
 3. flatMap
 4. withFilter
-###### In other words scala does not have a for loop it is systactic sugar for these methods.
-###### The real purpose of the scala for expression is to write the code in a way that makes more sense.You should use the for expression when you think your code is getting too cryptic using those methods, and it makes more sense using a for expression.
+In other words scala does not have a for loop it is systactic sugar for these methods.The real purpose of the scala for expression is to write the code in a way that makes more sense.You should use the for expression when you think your code is getting too cryptic using those methods, and it makes more sense using a for expression.Once you know that for is a syntactic sugar it beacomes easy understanding the for expression.
 
-
-###### Once you know that for is a syntactic sugar it beacomes easy understanding the for expression.__
-### Lets bring the "yield" back to the structure.In the absance of the yield for behaves like the foreach method.
+## Lets bring the "yield" back to the structure.
+In the absance of the yield for behaves like the foreach method , now  the for loop will behave like the map method.
 ```
 for (abrv <- abrvs)  yield {
   if (states.contains(abrv)) {
