@@ -108,14 +108,114 @@ for {
 	if(j%2==0) 
 	k <- 1 to 2 } println(s"i=$i j=$j k=$k")
 ```
-### Lets take a better example to understand the power and the flexibility of the for expression
+## Lets take a better example to understand the power and the flexibility of the for expression
 Define the people csv string
 ```
-val people ="""name,family_name,addres,city,state,zipcode
+val people ="""first_name,last_name,addres,city,state,zipcode
 John,Doe,120 jefferson st.,Riverside, NJ, 08075
 Jack,McGinnis,220 hobo Av.,Phila, PA,09119
 John Da Man,Repici,120 Jefferson St.,Riverside, NJ,08075
 Stephen,Tyler,7452 Terrace At the Plaza road,SomeTown,SD, 91234
-Mike,Anne,9th Terrace plc,Desert City,CO,00123
-"""
+Mike,Anne,9th Terrace plc,Desert City,CO,00123"""
 ```
+
+### Print the csv line by line
+```
+for (line <- people.split("\\n").toList) println(line)
+```
+### Print first_name, last_name, state fields only
+```
+for (line <- people.split("\\n").toList) {
+	val fields = line.split(",")
+     	println(fields(0) + "," + fields(1) + "," + fields(4))
+}
+```
+### Make it more ala-scala
+The idea is expand the for expression instead of expanding the body as simple as possible assignment inside the for  (not in the body)
+```
+for (line <- people.split("\\n").toList) {
+	fields = line.split(",")   	
+} println(fields(0) + "," + fields(1) + "," + fields(4))
+```
+
+### Print first_name, last_name, state fields only where the state is NJ
+```
+for {
+  line <- people.split("\\n").toList
+  fields = line.split(",")
+  if (fields(4).trim == "NJ")
+} println(fields(0) + "," + fields(1) + "," + fields(4))
+```
+
+### Do not print generete a list of tuples
+```
+for {
+  line <- people.split("\\n").toList
+  fields = line.split(",")
+  if (fields(4).trim == "NJ")
+} yield (fields(0) , fields(1) , fields(4))
+```
+## Recaping the basics
+### The syntax of for expression in scala is
+### for (seq) yield { expr }
+### In the seq part you can define
+1. A Generator - A collection
+2. A Filter  - An if contition
+3. A definition -  An assignment
+
+## Exception chanining without for
+```
+def run(args: Array[String]): Try[Unit] = {
+
+        val parsedArgs = verifyArgs(args)
+        if (parsedArgs.isFailure) {
+          return Failure(parsedArgs.failed.get)
+        }
+      
+        val config = loadConfig(parsedArgs.get.environment)
+        if(config.isFailure) {
+          return Failure(config.failed.get)
+        }
+      
+        val session = buildSparkSession(config.get)
+        if (session.isFailure) {
+          return Failure(session.failed.get)
+        }
+      
+        val (sparkSession, sparkMetrics, metricsClient) = session.get
+      
+        val params = buildParams(parsedArgs.get, config.get)
+        
+        if(params.isFailure) {
+          return Failure(params.failed.get)
+        }
+
+        measure(params.get, sparkSession, sparkMetrics, metricsClient)
+    }
+  }
+```
+
+## Exception chaning with for
+```
+def run(args: Array[String]): Try[Unit] = {
+      for {
+        parsedArgs <- verifyArgs(args)
+        config <- loadConfig(parsedArgs.environment)
+        (sparkSession, sparkMetrics, metricsClient) <- buildSparkSession(config)
+        params <- buildParams(parsedArgs, config)
+        executionResult <- measure(params,
+                                   sparkSession,
+                                   sparkMetrics,
+                                   metricsClient)
+      } yield executionResult
+    }
+```
+
+
+
+
+
+
+
+
+
