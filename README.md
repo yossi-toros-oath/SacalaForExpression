@@ -73,3 +73,38 @@ abrvs.map { abrv =>
   }
 }
 ```
+## Scala for expression permits multiple generators each additional genereator will cause to an additional nested loop.
+```
+for ( i <- 1 to 3; j <- 1 to 2) println(s"i=$i j=$j")
+```
+
+### If the code between parantheses getting too complex you can use curly braces
+```
+for {
+	i <- 1 to 3; 
+	j <- 1 to 2; 
+	k <- 1 to 2 } println(s"i=$i j=$j k=$k")
+```
+### Semi colons are optional
+```
+	for {
+	i <- 1 to 3 
+	j <- 1 to 2 
+	k <- 1 to 2 } println(s"i=$i j=$j k=$k")
+```
+### For each generartion we can apply a filter
+```
+Putting a filter to one of the generators, a filter to eliminate the odd numbers
+for {
+	i <- 1 to 3 
+	j <- 1 to 2; if(j%2==0) 
+	k <- 1 to 2 } println(s"i=$i j=$j k=$k")
+```
+### You can also write it like this one expression on each line
+```
+for {
+	i <- 1 to 3 
+	j <- 1 to 2
+	if(j%2==0) 
+	k <- 1 to 2 } println(s"i=$i j=$j k=$k")
+```
