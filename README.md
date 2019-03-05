@@ -133,8 +133,9 @@ for (line <- people.split("\\n").toList) {
 ### Make it more ala-scala
 The idea is expand the for expression instead of expanding the body as simple as possible assignment inside the for  (not in the body)
 ```scala
-for (line <- people.split("\\n").toList) {
-	fields = line.split(",")   	
+for {
+    line <- people.split("\\n").toList
+    fields = line.split(",")   	
 } println(fields(0) + "," + fields(1) + "," + fields(4))
 ```
 
