@@ -16,7 +16,7 @@ for ( i <- range) println(i)
 ```
 Or
 We  write 1 to 5 it gives a range collection and the for expression iterates through it.
-```
+```scala
 for ( i <- 1 to 5 ) println(i)
 ```
 #### The body of the for loop is quite simple a just println lets move  lets add some code to it
