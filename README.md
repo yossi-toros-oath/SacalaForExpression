@@ -41,7 +41,7 @@ abrvs.foreach { abrv =>
     println("N/A")
   }
 }
-```scala
+```
 
 The for loop is just a syntactic sugar for higher order conrol abstractions.
 The scala compiler will convert the for loop to one of the following control abstractions.
