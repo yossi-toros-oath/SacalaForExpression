@@ -2,15 +2,15 @@
 __For expression is a swiss army knife for iterations__
 
 ## Genereal Syntax :
-```
+```scala
 for ( sequence(s)/[filter(s)]/[assignment(s)] ) yield { expr }
 ```
 ## Lets keep the yield aside (for the moment)
-```
+```scala
 for ( seqeunce(s)/[filter(s)]/[assignment(s)]){ expr }
 ```
 #### A simple example 
-```
+```scala
 val range = 1 to 10
 for ( i <- range) println(i)
 ```
@@ -20,7 +20,7 @@ We  write 1 to 5 it gives a range collection and the for expression iterates thr
 for ( i <- 1 to 5 ) println(i)
 ```
 #### The body of the for loop is quite simple a just println lets move  lets add some code to it
-```
+```scala
 val states = Map("AL" -> "Alabama", "AK" -> "Alaska")
 val abrvs = List("AL", "AK", "NY")
 for (abrv <- abrvs) {
@@ -33,7 +33,7 @@ for (abrv <- abrvs) {
 ```
 #### Question : 
 Can we genereate the same output without a for loop ?
-```
+```scala
 abrvs.foreach { abrv =>
   if (states.contains(abrv)) {
     println(states(abrv))
@@ -41,7 +41,7 @@ abrvs.foreach { abrv =>
     println("N/A")
   }
 }
-```
+```scala
 
 The for loop is just a syntactic sugar for higher order conrol abstractions.
 The scala compiler will convert the for loop to one of the following control abstractions.
@@ -54,7 +54,7 @@ In other words scala does not have a for loop it is systactic sugar for these me
 
 ## Lets bring the "yield" back to the structure.
 In the absance of the yield for behaves like the foreach method , now  the for loop will behave like the map method.
-```
+```scala
 for (abrv <- abrvs)  yield {
   if (states.contains(abrv)) {
     states(abrv)
@@ -64,7 +64,7 @@ for (abrv <- abrvs)  yield {
 }
 ```
 
-```
+```scala
 abrvs.map { abrv =>
   if (states.contains(abrv)) {
     states(abrv)
@@ -74,26 +74,26 @@ abrvs.map { abrv =>
 }
 ```
 ## Scala for expression permits multiple generators each additional genereator will cause to an additional nested loop.
-```
+```scala
 for ( i <- 1 to 3; j <- 1 to 2) println(s"i=$i j=$j")
 ```
 
 ### If the code between parantheses getting too complex you can use curly braces
-```
+```scala
 for {
 	i <- 1 to 3; 
 	j <- 1 to 2; 
 	k <- 1 to 2 } println(s"i=$i j=$j k=$k")
 ```
 ### Semi colons are optional
-```
+```scala
 for {
 	i <- 1 to 3 
 	j <- 1 to 2 
 	k <- 1 to 2 } println(s"i=$i j=$j k=$k")
 ```
 ### For each generartion we can apply a filter
-```
+```scala
 Putting a filter to one of the generators, a filter to eliminate the odd numbers
 for {
 	i <- 1 to 3 
@@ -101,7 +101,7 @@ for {
 	k <- 1 to 2 } println(s"i=$i j=$j k=$k")
 ```
 ### You can also write it like this one expression on each line
-```
+```scala
 for {
 	i <- 1 to 3 
 	j <- 1 to 2
@@ -110,7 +110,7 @@ for {
 ```
 ## Lets take a better example to understand the power and the flexibility of the for expression
 Define the people csv string
-```
+```scala
 val people ="""first_name,last_name,addres,city,state,zipcode
 John,Doe,120 jefferson st.,Riverside, NJ, 08075
 Jack,McGinnis,220 hobo Av.,Phila, PA,09119
@@ -120,11 +120,11 @@ Mike,Anne,9th Terrace plc,Desert City,CO,00123"""
 ```
 
 ### Print the csv line by line
-```
+```scala
 for (line <- people.split("\\n").toList) println(line)
 ```
 ### Print first_name, last_name, state fields only
-```
+```scala
 for (line <- people.split("\\n").toList) {
 	val fields = line.split(",")
      	println(fields(0) + "," + fields(1) + "," + fields(4))
@@ -132,14 +132,14 @@ for (line <- people.split("\\n").toList) {
 ```
 ### Make it more ala-scala
 The idea is expand the for expression instead of expanding the body as simple as possible assignment inside the for  (not in the body)
-```
+```scala
 for (line <- people.split("\\n").toList) {
 	fields = line.split(",")   	
 } println(fields(0) + "," + fields(1) + "," + fields(4))
 ```
 
 ### Print first_name, last_name, state fields only where the state is NJ
-```
+```scala
 for {
   line <- people.split("\\n").toList
   fields = line.split(",")
@@ -148,7 +148,7 @@ for {
 ```
 
 ### Do not print generete a list of tuples
-```
+```scala
 for {
   line <- people.split("\\n").toList
   fields = line.split(",")
@@ -164,7 +164,7 @@ for {
 3. A definition -  An assignment
 
 ## Exception chanining without for
-```
+```scala
 def run(args: Array[String]): Try[Unit] = {
 
         val parsedArgs = verifyArgs(args)
@@ -196,7 +196,7 @@ def run(args: Array[String]): Try[Unit] = {
 ```
 
 ## Exception chaning with for
-```
+```scala
 def run(args: Array[String]): Try[Unit] = {
       for {
         parsedArgs <- verifyArgs(args)
